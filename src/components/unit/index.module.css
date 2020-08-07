@@ -1,0 +1,18 @@
+
+.container {
+  width: 100%;
+  height: auto;
+  border: 1px solid #234465;
+  margin-bottom: 3%;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.image {
+  height: 100px;
+}
+.info{
+  margin-right: 20px;
+}
