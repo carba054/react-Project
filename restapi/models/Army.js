@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
-const { String, ObjectId, Number } = Schema.Types;
+const { String, ObjectId, Number, Array } = Schema.Types;
 
 const armySchema = new Schema({
-    unitId: {
-        type: ObjectId,
-        ref: "Units"
-    },
-    quantity: {
-        type: Number,
-        default: 0
+    army: {
+        type: Array,
+        unitId: {
+            type: ObjectId,
+            ref: "Unit"
+        },
+        quantity: {
+            type: Number
+        }
+        
     },
     userId: {
         type: ObjectId,

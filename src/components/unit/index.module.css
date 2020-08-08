@@ -1,4 +1,4 @@
-
+/* 
 .container {
   width: 100%;
   height: auto;
@@ -9,10 +9,29 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+*/
 
-.image {
-  height: 100px;
+
+.container {
+  padding: 20px;
+  border: 2px solid #dddddd;
+} 
+
+table {
+
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;  
 }
-.info{
-  margin-right: 20px;
+
+td, th {
+  border: 2px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.inputBuy{
+   width: 50%;
+   margin-left: 20%;
 }

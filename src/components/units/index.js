@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import styles from './index.module.css'
 import Unit from '../unit'
 import getUnit from '../../utils/units'
@@ -6,23 +7,31 @@ import getUnit from '../../utils/units'
 
 const Units = (props) => {
   const [units, setUnits] = useState([])
+  const [href, setHref] = useState(undefined)
+  const location = useLocation();
+
   
   const getUnits = useCallback(async () => {
-    const units = await getUnit(props.length)
+    const units = await getUnit()
     setUnits(units)
-  }, [props.length])
+  }, [])
 
   const renderUnits = () => {
     return units.map((origam, index) => {
-      return (
-        <Unit key={origam._id} index={index} {...origam} />
-      )
+      return href === origam.typeId.name?
+      <Unit key={origam._id} index={index} {...origam} />:
+      href === undefined?
+      <Unit key={origam._id} index={index} {...origam} />:
+      '';
+
     })
   }
+  
 
   useEffect(() => {
     getUnits()
-  }, [props.updatedUnit, getUnits])
+    setHref(location.pathname.split('/')[2])
+  }, [props.updatedUnit, getUnits, location.pathname])
 
   return (
     <div className={styles["units-wrapper"]}>

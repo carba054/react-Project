@@ -18,12 +18,15 @@ module.exports = {
 
         const { _id } = req.user;
 
-        const { unitId, quantity} = req.body; 
+        const { unitId, quantity } = req.body; 
+        
+        //models.Army.create({userId: _id, army:[{"unitId":unitId, "quantity":quantity}]}).then((result)=>console.log(result)).catch(console.log)
+        models.Army.find({ army:{$elemMatch:{unitId}}}).then((result)=>console.log(result)).catch(console.log)
 
-        models.Army.findOneAndUpdate({userId: _id, unitId }, {quantity})
-        .then((result)=>{
-                result?console.log(result):models.Army.create({userId: _id, unitId, quantity}).then((unit)=>res.send(result))
-            }).catch(next);
+        // models.Army.findOneAndUpdate({ userId: _id,}, [{unitId,quantity}])
+        // .then((result)=>{
+        //         result?console.log(result):models.Army.create({userId: _id, army:[{"unitId":unitId, "quantity":quantity}]}).then((unit)=>res.send(result))
+        //     }).catch(next);
           
     },
 

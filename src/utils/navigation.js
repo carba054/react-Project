@@ -6,11 +6,11 @@ const getNavigation = (user) => {
       link: "/",
       section: [{
         title: "Industrial",
-        type: "industrial",
+        type: "/industrial",
       },
       {
         title: "Army",
-        type: "army",
+        type: "/army",
       }]
     },
     {
@@ -18,23 +18,23 @@ const getNavigation = (user) => {
       link: "/factory",
       section: [{
         title: "Infantry",
-        type: "infantry"
+        type: "/infantry"
       },
       {
         title: "Armored",
-        type: "armored"
+        type: "/armored"
       },
       {
         title: "Helicopters",
-        type: "helicopters"
+        type: "/helicopter"
       },
       {
         title: "Fighters",
-        type: "fighters"
+        type: "/fighter"
       },
       {
         title: "Defance",
-        type: "defance"
+        type: "/defance"
       }]
     },
     {
@@ -47,11 +47,11 @@ const getNavigation = (user) => {
       link: `/profile/${user && user.id}`,
       section: [{
         title: "Reports",
-        type: "reports",
+        type: "/reports",
       },
       {
         title: "Settings",
-        type: "settings",
+        type: "/settings",
       }]
     },
     {
