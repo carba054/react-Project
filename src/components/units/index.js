@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import styles from './index.module.css'
+// import styles from './index.module.css'
 import Unit from '../unit'
 import getUnit from '../../utils/units'
+import DivGrid from '../grid'
 
 
 const Units = (props) => {
@@ -34,9 +35,9 @@ const Units = (props) => {
   }, [props.updatedUnit, getUnits, location.pathname])
 
   return (
-    <div className={styles["units-wrapper"]}>
+    <DivGrid cssName={"twoColumns"}>
       {renderUnits()}
-    </div>
+    </DivGrid>
   )
 }
 

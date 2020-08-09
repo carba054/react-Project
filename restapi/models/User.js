@@ -19,7 +19,8 @@ const userSchema = new Schema({
         require: true
     },
 
-    posts: [{ type: ObjectId, ref: "Origami" }]
+    // posts: [{ type: ObjectId, ref: "Origami" }]
+    
 
 });
 

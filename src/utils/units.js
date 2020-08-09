@@ -1,5 +1,5 @@
-const getUnits = async () => {
-  const promise = await fetch(`http://localhost:9999/api/units`)
+const getUnits = async (userId = '') => {
+  const promise = await fetch(`http://localhost:9999/api/units${userId}`)
   const units = await promise.json()
   return units
 }

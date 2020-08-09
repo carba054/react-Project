@@ -6,7 +6,7 @@ module.exports = {
         const token = req.headers.authorization
 
         jwt.verifyToken(token).then(data => {
-            models.Army.find({userId: data.id}).populate('unitId')
+            models.Army.find({userId: data.id}).populate('army.unitId')
             .then((units) => {
                 res.send(units)
             })
@@ -15,19 +15,21 @@ module.exports = {
     },
 
     post: (req, res, next) => {
-
+        
         const { _id } = req.user;
 
         const { unitId, quantity } = req.body; 
         
-        //models.Army.create({userId: _id, army:[{"unitId":unitId, "quantity":quantity}]}).then((result)=>console.log(result)).catch(console.log)
-        models.Army.find({ army:{$elemMatch:{unitId}}}).then((result)=>console.log(result)).catch(console.log)
-
-        // models.Army.findOneAndUpdate({ userId: _id,}, [{unitId,quantity}])
-        // .then((result)=>{
-        //         result?console.log(result):models.Army.create({userId: _id, army:[{"unitId":unitId, "quantity":quantity}]}).then((unit)=>res.send(result))
-        //     }).catch(next);
-          
+        models.Army.find({userId: _id, army:{$elemMatch:{unitId}}})
+        .then((result)=>{
+            if(result.length === 0){
+                return models.Army.updateOne({userId: _id}, {"$push":{army:{unitId,quantity}}} )
+            }
+             return models.Army.findOneAndUpdate({userId: _id, army:{$elemMatch:{unitId}}}, {$set:{"army.$":{unitId,quantity}}}, {new: true, useFindAndModify: false} )
+        }).then((army)=>{
+            console.log(army)
+            return res.send(army)
+        }).catch(next)
     },
 
     put: (req, res, next) => {

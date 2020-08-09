@@ -3,7 +3,7 @@ const getNavigation = (user) => {
   const authLinks = [
     {
       title: "Base",
-      link: "/",
+      link: "/home",
       section: [{
         title: "Industrial",
         type: "/industrial",

@@ -4,19 +4,20 @@ const Model = mongoose.model;
 const { String, ObjectId, Number, Array } = Schema.Types;
 
 const armySchema = new Schema({
-    army: {
-        type: Array,
+    army: [
+        {
         unitId: {
             type: ObjectId,
-            ref: "Unit"
+            ref: "Units"
         },
         quantity: {
             type: Number
         }
         
-    },
+        }],
     userId: {
         type: ObjectId,
+        unique: true,
         ref: "User"
     }
 });

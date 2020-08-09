@@ -15,6 +15,7 @@ module.exports = {
             models.User.create({ username, password })
                 .then((createdUser) => {
                   const token = utils.jwt.createToken({ id: createdUser._id });
+                  models.Army.create({userId: createdUser._id, army:[]})
                   res.header("Authorization", token).send(createdUser);
                 })
                 .catch((err) => {

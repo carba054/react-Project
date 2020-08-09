@@ -23,11 +23,11 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={context.user.loggedIn?Home:ErrorPage} />
+        <Route path="/home" component={context.user.loggedIn?Home:ErrorPage} />
         <Route path="/factory" component={FactoryPage} />
         <Route path="/ranking" component={RankingPage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/register" exact component={RegisterPage} />
+        <Route path="/login" exact component={LoginPage} />
         <Route path="/profile/:userid" component={ProfilePage} />
         <Route path="/logout" component={logOut}/>
         <Route component={ErrorPage} />
