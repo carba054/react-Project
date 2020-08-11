@@ -3,17 +3,17 @@ import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Units from '../../components/units'
 // import getCookie from '../../utils/cookie'
-import styles from './index.module.css'
-
+// import styles from './index.module.css'
+import DivGrid from '../../components/grid'
 
 const Factory = () =>{
 
   return (
         <PageLayout>
           <Title title="Factory" />
-          <div className={styles.container}>
-            <Units/>
-          </div>
+          <DivGrid cssName={"twoColumns"}>
+            <Units buy={true}/>
+          </DivGrid>
         </PageLayout>
       )
 }

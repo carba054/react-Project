@@ -10,28 +10,46 @@
   justify-content: flex-start;
 }
 */
+.inputBuy{
+  width: 50%;
+  margin-left: 20%;
+}
 
+.unitImg{
+  display: block;
+  cursor: pointer;
+}
 
+h3{
+  text-align: center;
+  margin: auto;
+}
 .container {
   padding: 20px;
   border: 2px solid #dddddd;
 } 
 
 table {
-
+  
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  table-layout: fixed;
+  /* table-layout: auto; */
+
+}
+
+.info{
   width: 100%;  
 }
+
+/* .moreInfo{
+  display: inline-block; 
+  width: 50%;  
+  
+} */
 
 td, th {
   border: 2px solid #dddddd;
   text-align: left;
+  /* height: 35px; */
   padding: 8px;
-}
-
-.inputBuy{
-   width: 50%;
-   margin-left: 20%;
 }

@@ -4,7 +4,7 @@ const saltRounds = 10;
 
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
-const { String, ObjectId } = Schema.Types;
+const { String, Number, ObjectId } = Schema.Types;
 
 const userSchema = new Schema({
 
@@ -19,6 +19,35 @@ const userSchema = new Schema({
         require: true
     },
 
+    wins: {
+        type: Number,
+        default: 0
+        
+    },
+    losses: {
+        type: Number,
+        default: 0
+    },
+    metal: {
+        type: Number,
+        default: 10000
+    },
+    mineral: {
+        type: Number,
+        default: 5000
+    },
+    fuel: {
+        type: Number,
+        default: 500
+    },
+    maxPopulation:{
+        type: Number,
+        default: 10
+    },
+    currentPopulation:{
+        type: Number,
+        default: 0
+    }
     // posts: [{ type: ObjectId, ref: "Origami" }]
     
 

@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 import Link from '../link'
 import styles from './index.module.css'
 import getNavigation from '../../utils/navigation'
@@ -6,47 +6,57 @@ import UserContext from '../../Context'
 
 
 const Header = () =>{
- 
-
+  
   const {user} = useContext(UserContext)
+  
   const links = getNavigation(user)
 
-  
+  const renderResource = () => {
+    return (
+          <div className={styles.resurs}>
+            <div>
+              <span>Minerals: </span>
+              <span className={styles.spanRight}>{user.user.metal}</span>
+            </div>
+            <div>
+              <span>Metals: </span>
+              <span className={styles.spanRight}>{user.user.mineral}</span>
+            </div>
+            <div>
+              <span>Fuel: </span>
+              <span className={styles.spanRight}>{user.user.fuel}</span>
+            </div>
+            <div>
+              <span>Current/Max Population</span>
+              <span className={styles.spanRight}>{user.user.currentPopulation}/{user.user.maxPopulation}</span>
+            </div>
+          </div>
+    )
+
+  }
+//https://www.jing.fm/clipimg/full/345-3453810_two-swords-clip-art-crossed-swords.png
  
     return (
-      <header className={styles.navigation}>
-        <img alt="logo" className={styles.logo} src={'https://www.jing.fm/clipimg/full/345-3453810_two-swords-clip-art-crossed-swords.png'}  />
-        <div className={styles.resurs}>
-          <div>
-            <span>Minerals: </span>
-            <span className={styles.spanRight}>123234</span>
-          </div>
-          <div>
-            <span>Metals: </span>
-            <span className={styles.spanRight}>655565</span>
-          </div>
-          <div>
-            <span>Fuel: </span>
-            <span className={styles.spanRight}>2500</span>
-          </div>
-          <div>
-            <span>Population: </span>
-            <span className={styles.spanRight}>500</span>
-          </div>
-        </div>
-        {
-          links.map((navElement, i) => {
-            return (
-              <Link
-                key={navElement.title}
-                href={navElement.link}
-                title={navElement.title}
-                type="header"
-              />
-            )
-          })
-        }
+      <React.Fragment>
+        
+        <header className={styles.navigation}>
+          <img alt="logo" className={styles.logo} src={'https://i.ibb.co/LCd9L60/kisspng-world-of-tanks-heavy-tank-game-medium-tank-5ae3bfe8ec3249-2630610015248752409675.png'}  />
+          {user.loggedIn?renderResource():""}
+          {
+            links.map((navElement, i) => {
+              return (
+                <Link
+                  key={navElement.title}
+                  href={navElement.link}
+                  title={navElement.title}
+                  type="header"
+                />
+              )
+            })
+          }
       </header>
+      </React.Fragment>
+      
     )
 
 }

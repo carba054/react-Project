@@ -39,17 +39,31 @@ const unitsSchema = new Schema({
     },
     population:{
         type: Number,
+        default: 1,
         required: true
     },
     typeId:{
         type: ObjectId,
         ref: "UnitType"
     },
+    metal:{
+        type: Number,
+        default: 0,
+        
+    },
+    mineral:{
+        type: Number,
+        default: 0,
+    },
+    fuel:{
+        type: Number,
+        default: 0,
+    },
     priorityTargetsType:{
         type: Array
     }
 
 
-}, { timestamps: { createdAt: 'created_at' } });
+});
 
 module.exports = new Model('Units', unitsSchema);

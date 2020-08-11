@@ -15,6 +15,17 @@ const armySchema = new Schema({
         }
         
         }],
+    // industrial: [
+    //     {
+    //     factoryId: {
+    //         type: ObjectId,
+    //         ref: "Factory"
+    //     },
+    //     quantity: {
+    //         type: Number
+    //     }
+        
+    //     }],
     userId: {
         type: ObjectId,
         unique: true,

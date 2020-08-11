@@ -1,16 +1,29 @@
 const models = require('../models');
-const jwt = require('../utils/jwt');
+// const jwt = require('../utils/jwt');
 module.exports = {
-    get: (req, res, next) => {
+    get: {
+        owner:(req, res, next) => {
         
-        const token = req.headers.authorization
-
-        jwt.verifyToken(token).then(data => {
-            models.Army.find({userId: data.id}).populate('army.unitId')
+            const id = req.params.id;
+            models.Army.find({userId: id}).populate({
+                path : 'army.unitId',
+                populate : {
+                  path : 'typeId'
+                }
+              })
+            .then((units) => {
+                
+                res.send(units[0].army)
+            }).catch(next);
+    
+        },
+        all:(req, res, next) => {
+            
+            models.Army.find({}).populate('userId')
             .then((units) => {
                 res.send(units)
-            })
-          }).catch(next);
+            }).catch(next);
+        }
 
     },
 
@@ -27,7 +40,7 @@ module.exports = {
             }
              return models.Army.findOneAndUpdate({userId: _id, army:{$elemMatch:{unitId}}}, {$set:{"army.$":{unitId,quantity}}}, {new: true, useFindAndModify: false} )
         }).then((army)=>{
-            console.log(army)
+            // console.log(army)
             return res.send(army)
         }).catch(next)
     },

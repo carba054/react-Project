@@ -1,23 +1,22 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import DivGrid from '../../components/grid'
 import styles from './index.module.css'
-import Units from '../../components/units'
-import UserContext from '../../Context'
+// import UserContext from '../../Context'
 
 const Publications = () => {
 
-  const [href, setHref] = useState("")
-  // const [href, setHref] = useState(undefined)
+  const [href, setHref] = useState('/home')
 
   const history = useHistory()
-  const context = useContext(UserContext)
+  // const context = useContext(UserContext)
 
 
   useEffect (() => {
-    history.push("/home/"+href);
+    history.replace(href);
+    
   },[href,history])
 
   
@@ -25,17 +24,16 @@ const Publications = () => {
     <PageLayout>
       <Title title="Base" />
       <DivGrid cssName={"twoColumns"}>
-        <div className={styles.col} onClick={() =>setHref("factory")}>
-          <Title title="Factory" /> 
-          <img className={styles.colImg} src="https://i.ibb.co/pzJW9Zt/factory.jpg" alt="factory"/>
+        <div className={styles.col} onClick={() =>setHref("/home/industrial")}>
+          <Title title="Industrial" /> 
+          <img className={styles.colImg} src="https://i.ibb.co/pzJW9Zt/factory.jpg" alt="industrial"/>
         </div>
-        <div className={styles.col} onClick={() =>setHref("army")}>
+        <div className={styles.col} onClick={() =>setHref("/home/army")}>
           <Title title="Army" />
           <img className={styles.colImg} src="https://i.ibb.co/KhyCCYj/army.jpg" alt="army"/>
         </div>
 
-
-        {/* <Units href={"?userId="+context.user.id}/> */}
+        {/* {href.split('/')[2] === 'army'?<Units apiHref={"?userId="+context.user.id}/>:''} */}
       </DivGrid>
     </PageLayout>
   )

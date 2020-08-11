@@ -1,0 +1,17 @@
+/* .container {
+    border: 1px solid #dddddd;
+    display: inline-flex;
+    max-width: 100%;
+ } */
+ 
+
+ .tableRank{
+     width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    
+ }
+
+ .tableRank th, td {
+     text-align: center;
+ }

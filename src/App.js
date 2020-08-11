@@ -8,7 +8,7 @@ const App = (props) => {
   
   const logIn = (user) => {
     setUser({
-      ...user,
+      user,
       loggedIn: true
     })
   }
@@ -40,7 +40,12 @@ const App = (props) => {
       if(response.status) {
         logIn({
           username: response.user.username,
-          id: response.user._id
+          id: response.user._id,
+          mineral: response.user.mineral,
+          metal: response.user.metal,
+          fuel: response.user.fuel,
+          maxPopulation: response.user.maxPopulation,
+          currentPopulation: response.user.currentPopulation
         })
       } else {
         logOut()

@@ -11,7 +11,7 @@ module.exports = {
     },
 
     post: (req, res, next) => {
-        const { name, imgUrl, attackInfantry, attackArmored, attackHelicopter, attackFighter, attackDefence, life, population, type, priorityTargetsType} = req.body;
+        const { name, imgUrl, attackInfantry, attackArmored, attackHelicopter, attackFighter, attackDefence, life, population, type, metal, mineral, fuel, priorityTargetsType} = req.body;
 
         Promise.all([
             models.UnitType.findOne({name: type}),
@@ -29,7 +29,7 @@ module.exports = {
         let prTargetIds = priorityTargetsTypeId.concat(typesIds.filter((item) => priorityTargetsTypeId.indexOf(item) < 0))
 
             const typeId = unitType._id
-            return models.Units.create({ name, imgUrl, attackInfantry, attackArmored, attackHelicopter, attackFighter, attackDefence, life, population, typeId, priorityTargetsType:prTargetIds })
+            return models.Units.create({ name, imgUrl, attackInfantry, attackArmored, attackHelicopter, attackFighter, attackDefence, life, population, typeId, metal, mineral, fuel, priorityTargetsType:prTargetIds })
         }).then((createdUnit) => {
             return models.Units.findOne({ _id: createdUnit._id })
             })
