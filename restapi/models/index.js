@@ -2,7 +2,7 @@ const User = require('./User')
 const TokenBlacklist = require('./TokenBlacklist')
 const Units = require('./Units')
 const UnitType = require('./UnitType')
-const Army = require('./Army')
+const Base = require('./Base')
 const Factory = require('./Factory')
 
 module.exports = {
@@ -10,6 +10,6 @@ module.exports = {
     TokenBlacklist,
     Units,
     UnitType,
-    Army,
+    Base,
     Factory
 }

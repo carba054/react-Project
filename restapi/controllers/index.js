@@ -1,11 +1,11 @@
 const user = require('./user')
 const units = require('./units')
-const army = require('./army')
+const base = require('./base')
 const factory = require('./factory')
 
 module.exports = {
     user,
     units,
-    army,
+    base,
     factory
 }

@@ -22,6 +22,7 @@ import UserContext from './Context'
 
 const Navigation = () => {
   const context = useContext(UserContext)
+ 
   return (
     <BrowserRouter>
       <Switch>

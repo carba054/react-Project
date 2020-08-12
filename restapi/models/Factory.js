@@ -17,9 +17,14 @@ const factorySchema = new Schema({
         type: Number,
         default: 0,
     },
+    href:{
+        type: String,
+        required: true
+    },
     unlock:{
         type: ObjectId,
-        ref: "Units"
+        required: true,
+        ref: "UnitType"
     }
 });
 

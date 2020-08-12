@@ -12,13 +12,16 @@
 
 .container {
     width: 80%;
-    height: 100%;
+    min-height: 77vh;
+    /* height: 89.5vh; */
     margin: auto;
     margin-top: 15vh;
     padding: 0.5%;
     /* border: 1px solid purple; */
     background-color: #0db2ff;
     margin-bottom: 0.1%;
+    display: flex;
+    
     
 }
 

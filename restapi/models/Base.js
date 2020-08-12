@@ -3,29 +3,31 @@ const Schema = mongoose.Schema;
 const Model = mongoose.model;
 const { String, ObjectId, Number, Array } = Schema.Types;
 
-const armySchema = new Schema({
-    army: [
+const baseSchema = new Schema({
+    units: [
         {
         unitId: {
             type: ObjectId,
             ref: "Units"
         },
         quantity: {
-            type: Number
+            type: Number,
+            default: 1
         }
         
         }],
-    // industrial: [
-    //     {
-    //     factoryId: {
-    //         type: ObjectId,
-    //         ref: "Factory"
-    //     },
-    //     quantity: {
-    //         type: Number
-    //     }
+    industrial: [
+        {
+        factoryId: {
+            type: ObjectId,
+            ref: "Factory"
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        }
         
-    //     }],
+        }],
     userId: {
         type: ObjectId,
         unique: true,
@@ -33,4 +35,4 @@ const armySchema = new Schema({
     }
 });
 
-module.exports = new Model('Army', armySchema);
+module.exports = new Model('Base', baseSchema);

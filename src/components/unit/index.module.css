@@ -10,13 +10,31 @@
   justify-content: flex-start;
 }
 */
-.inputBuy{
-  width: 50%;
-  margin-left: 20%;
-}
 
+/* .displayNone{
+  display: none;
+} */
+
+.inputBuy{
+  width: 80px;
+  height: 30px;
+  text-align: center;
+}
+.buttonBuy{
+  width: 50px;
+  height: 34px;
+}
+.divBuy{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+.buttonInfo{
+  width: 100px;
+  height: 50px;
+}
 .unitImg{
-  display: block;
+  /* display: block; */
   cursor: pointer;
 }
 

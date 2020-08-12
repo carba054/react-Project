@@ -16,19 +16,19 @@ const Header = () =>{
           <div className={styles.resurs}>
             <div>
               <span>Minerals: </span>
-              <span className={styles.spanRight}>{user.user.metal}</span>
+              <span className={styles.spanRight}>{user.metal}</span>
             </div>
             <div>
               <span>Metals: </span>
-              <span className={styles.spanRight}>{user.user.mineral}</span>
+              <span className={styles.spanRight}>{user.mineral}</span>
             </div>
             <div>
               <span>Fuel: </span>
-              <span className={styles.spanRight}>{user.user.fuel}</span>
+              <span className={styles.spanRight}>{user.fuel}</span>
             </div>
             <div>
               <span>Current/Max Population</span>
-              <span className={styles.spanRight}>{user.user.currentPopulation}/{user.user.maxPopulation}</span>
+              <span className={styles.spanRight}>{user.currentPopulation}/{user.maxPopulation}</span>
             </div>
           </div>
     )
