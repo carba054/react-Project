@@ -3,7 +3,7 @@ const models = require('../models');
 module.exports = {
     get: (req, res, next) => {
         
-        models.Factory.find({})
+        models.Factory.find({}).populate('unlock')
             .then((factory) => {
                 res.send(factory)
             }).catch(next);

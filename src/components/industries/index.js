@@ -8,22 +8,29 @@ import UserContext from '../../Context'
 
 const Industryes = () => {
 
-  const [factories, setFactories] = useState([])
+  const [factories, setFactories] = useState([]) 
 
-  const [base, setBase] = useState(null);
+  const [base, setBase] = useState([]);
    const context = useContext(UserContext);
    const userId = context.user.id
    
    
-  useEffect(() => {
-    getData(`base/${userId}`).then((result)=>{
-      console.log(result)
-    })
-  }, [])
+  // useEffect(() => {
+  //   getData(`base/factory/${userId}`).then((result)=>{
+  //     console.log(result)
+  //   })
+  // }, [])
 
+  
   const getFactories = useCallback(() => {
-    getData("factory").then((factory)=>{
+    Promise.all([
+    getData("factory"),
+    getData(`base/factory/${userId}`)
+    ]).then(([factory,baseResult])=>{
       setFactories(factory)
+      
+      setBase(baseResult)
+      
     })
     
   }, [])
@@ -36,7 +43,10 @@ const Industryes = () => {
 
   const renderFactories = () => {
     return factories.map((factory) => {
-      return <Industry key={factory._id} {...factory} />
+        
+      const baseFactory = base.find((el)=> el.factoryId!==null && el.factoryId._id === factory._id)
+      //console.log(baseFactory)
+      return <Industry key={factory._id} factory={factory} baseFactory={baseFactory} opacity={baseFactory?true:false}/>
     })
   }
   return (

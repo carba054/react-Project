@@ -43,16 +43,14 @@ const getNavigation = (user) => {
       section: []
     },
     {
+      title: "Reports",
+      link: `/reports`,
+      section: []
+    },
+    {
       title: "Profile",
       link: `/profile/${user && user.id}`,
-      section: [{
-        title: "Reports",
-        type: "/reports",
-      },
-      {
-        title: "Settings",
-        type: "/settings",
-      }]
+      section: []
     },
     {
       title: "Logout",

@@ -4,20 +4,14 @@ import Title from '../../components/title'
 import UserContext from '../../Context'
 import styles from './index.module.css'
 import getGenerals from '../../utils/data'
-import getCookie from '../../utils/cookie'
 const Publications = () => {
 
   const userId = useContext(UserContext).user.id
   const [army, setArmy] = useState([])
   
   const getArmy = useCallback(() => {
-    const kind = "base"
-    const data = {headers: {
-      'Content-Type': 'application/json',
-      'Authorization': getCookie('x-auth-token')
-      }
-    }
-    getGenerals(kind,data).then((generals)=>{
+    
+    getGenerals("base").then((generals)=>{
       // const newUnits = generals.map((el)=> {
       //   const quantity =  Object.assign({"quantity":el.quantity}, el.unitId)
       //   return el.unitId?quantity:el

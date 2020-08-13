@@ -23,7 +23,7 @@ const Publications = () => {
   return (
     <PageLayout>
       <Title title="Base" />
-      <DivGrid cssName={"twoColumns"}>
+      <DivGrid>
         <div className={styles.col} onClick={() =>setHref("/home/industrial")}>
           <Title title="Industrial" /> 
           <img className={styles.colImg} src="https://i.ibb.co/pzJW9Zt/factory.jpg" alt="industrial"/>

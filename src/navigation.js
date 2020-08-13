@@ -15,6 +15,7 @@ import FactoryPage from './pages/factory'
 import RankingPage from './pages/ranking'
 import Army from './pages/army'
 import Industrial from './pages/industrial'
+// import Reports from './pages'
 
 import ErrorPage from './pages/error'
 

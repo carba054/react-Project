@@ -23,7 +23,20 @@ module.exports = {
     
         },
         ownerFactory(req, res, next){
-            console.log('Factory')
+            const id = req.params.id;
+            
+            models.Base.find({userId: id}).populate({
+                path : 'industrial.factoryId',
+                populate : {
+                  path : 'unlock'
+                }
+              })
+            .then((industry) => {
+                const result = industry[0].industrial.map((el)=> {
+                    return el  
+                })
+               res.send(result)
+            }).catch(next);
         },
         all:(req, res, next) => {
             
@@ -49,9 +62,25 @@ module.exports = {
                 }
                  return models.Base.findOneAndUpdate({userId: _id, units:{$elemMatch:{unitId}}}, {$set:{"units.$":{unitId,quantity}}}, {new: true, useFindAndModify: false} )
             }).then((units)=>{
-                // console.log(army)
                 return res.send(units)
             }).catch(next)
+        },
+        addFactory:(req, res, next) => {
+            const { _id } = req.user;
+    
+            const { factoryId, quantity } = req.body; 
+            
+            models.Base.find({userId: _id, industrial:{$elemMatch:{factoryId}}})
+            .then((result)=>{
+                if(result.length === 0){
+                    return models.Base.updateOne({userId: _id}, {"$push":{industrial:{factoryId,quantity}}} )
+                }
+                 return models.Base.findOneAndUpdate({userId: _id, industrial:{$elemMatch:{factoryId}}}, {$set:{"industrial.$":{unitId,quantity}}}, {new: true, useFindAndModify: false} )
+            }).then((industrial)=>{
+            
+                return res.send(industrial)
+            }).catch(next)
+
         }
 
     },

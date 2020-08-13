@@ -109,15 +109,20 @@ const Unit = (props) => {
         </tbody>
       </table>
       
-      <Grid cssName={"twoColumns"}>
+      <Grid>
         <div className={styles.divBuy}>
           <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => test(props._id)}/>
           <button onClick={() => setShowResults(!showResults)} className={styles.buttonInfo}>{!showResults?"Show ":"Hide "}info</button>
         </div>
+        
         {props.quantity?<h3>Quantity: {props.quantity}</h3>:
-        <div className={styles.divBuy}>
+        <div className={`${styles.divBuy} ${props.opacity===true?styles.opacity:''}`}>
           <input type="number" name="buy" className={styles.inputBuy}/><button className={styles.buttonBuy}>Buy</button>
         </div>}
+        <div className={`${styles.divBuy} ${!props.opacity===true?styles.opacity:''}`}>
+          <h3>You need a building</h3>
+        </div>
+        
         
         {showResults?unitinfo():''}
         
