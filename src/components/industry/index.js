@@ -10,7 +10,7 @@ const Industry = ({factory, baseFactory={}, opacity}) => {
         <h3>{opacity?"unlocked":"unlock"}: {factory.unlock.name} units</h3>
         <h3>baseFactory:{baseFactory.quantity}</h3>
         <DivGrid>
-        <img className={`${styles.factoryImg} ${!opacity?styles.opacity:''}` } src={factory.href}/>
+        <img className={`${styles.factoryImg} ${!opacity?styles.opacity:''}` } src={factory.href} alt='img'/>
         <div>
           <button>{opacity?'lvl up':'build'}</button>
         </div>

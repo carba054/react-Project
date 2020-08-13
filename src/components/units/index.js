@@ -7,7 +7,6 @@ import UserContext from '../../Context'
 
 const Units = (props) => {
   const [units, setUnits] = useState([])
-  const [base, setBase] = useState([])
   const [href, setHref] = useState(undefined)
   const location = useLocation();
   const context = useContext(UserContext);
@@ -21,7 +20,7 @@ const Units = (props) => {
       getData(`base/factory/${userId}`)
     ])
     .then(([units,base])=>{
-      setBase(base)
+      
       const newUnits = props.kind === undefined?units:
       units.map((el)=>{
         return {...el.unitId,"quantity":el.quantity}
@@ -30,14 +29,14 @@ const Units = (props) => {
       const finalUnits = newUnits.map((el)=> {
         
         const baseFactory = base.find((fac)=> fac.factoryId!==null && fac.factoryId.unlock._id === el.typeId._id)
-          console.log(baseFactory)
+          //console.log(baseFactory)
         return {...el,"opacity":!baseFactory?true:false}
       })
       
       setUnits(finalUnits)
     })
     
-  }, [props.kind])
+  }, [props.kind,userId])
 
   const renderUnits = () => {
     //console.log(units)
@@ -45,10 +44,12 @@ const Units = (props) => {
     
     const result = units.filter((el)=> el._id === href || el.typeId.name === href)
     const neResult = result.length===0?units:result;
-    return neResult.map((unit) => {
+    
+    return neResult.length!==0?neResult.map((unit) => {
+      
      // console.log(`${unit.opacity} : ${unit.name}`)
         return <Unit key={unit._id} buy={props.buy} {...unit} />
-    })
+    }):'You dont have units'
     
   }
 

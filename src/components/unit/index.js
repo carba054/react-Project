@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import styles from './index.module.css'
 import Grid from '../grid'
@@ -10,7 +10,7 @@ const Unit = (props) => {
   const location = useLocation();
   const [showResults, setShowResults] = useState(false)
 
-  function unitinfo(){
+  const unitinfo =useCallback(() =>{
     return (
       <React.Fragment>
         <table className={styles.moreInfo}>
@@ -65,16 +65,15 @@ const Unit = (props) => {
               <th>Population</th>
               <td>{props.population}</td>
             </tr>
-            {/* {props.buy?<tr><th colSpan={2}><input type="number" name="buy" className={styles.inputBuy}/><button>Buy</button></th></tr>:null} */}
           </tbody>
         </table>
       </React.Fragment>
         )
-  }
+  },[props])
   
   useEffect(() => {
     unitinfo()
-  },[showResults]);
+  },[unitinfo]);
   
   function test(id){
       // let loc = ['']
@@ -83,7 +82,7 @@ const Unit = (props) => {
       // 
        let loc = location.pathname.split('/');
        
-       let newLoc =loc.filter((el)=> el!=id);
+       let newLoc =loc.filter((el)=> el!==id);
        newLoc.push(id);
        newLoc = newLoc.join('/')
        history.replace(newLoc);

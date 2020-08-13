@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
 import Units from '../../components/units'
-import styles from './index.module.css'
+// import styles from './index.module.css'
 import UserContext from '../../Context'
 import DivGrid from '../../components/grid'
 

@@ -1,12 +1,12 @@
-import React, {useState, useCallback, useEffect, useContext} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PageLayout from '../../components/page-layout'
 import Title from '../../components/title'
-import UserContext from '../../Context'
+// import UserContext from '../../Context'
 import styles from './index.module.css'
 import getGenerals from '../../utils/data'
 const Publications = () => {
 
-  const userId = useContext(UserContext).user.id
+  // const userId = useContext(UserContext).user.id
   const [army, setArmy] = useState([])
   
   const getArmy = useCallback(() => {
@@ -39,9 +39,9 @@ const Publications = () => {
       return (
             <tr key={index}>
               <td>{unit.userId.username}</td> 
-              <td>1</td> 
-              <td>1</td> 
-              <td>1</td> 
+              <td>{unit.userId.wins}</td> 
+              <td>{unit.userId.losses}</td> 
+              <td>{unit.userId.currentPopulation}</td> 
               <td><button>View</button></td> 
               {/* <td><button>Attack</button></td>  */}
               <td><button>Attack</button></td> 

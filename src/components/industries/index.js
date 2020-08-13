@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react'
-import { useLocation } from 'react-router-dom'
-import styles from './index.module.css'
+// import { useLocation } from 'react-router-dom'
+// import styles from './index.module.css'
 import Industry from '../industry'
 import getData from '../../utils/data'
 import UserContext from '../../Context'
@@ -33,7 +33,7 @@ const Industryes = () => {
       
     })
     
-  }, [])
+  }, [userId])
 
   useEffect(() => {
     getFactories()

@@ -49,7 +49,7 @@ module.exports = {
     },
 
     post: {
-        addUnit:(req, res, next) => {
+        addUnit:(req, res, next) => {//quantity trqbva da se updatva +1 a ne da se podava kato number ot vun i trqbva da se vlizma ot resursa
         
             const { _id } = req.user;
     
@@ -75,7 +75,7 @@ module.exports = {
                 if(result.length === 0){
                     return models.Base.updateOne({userId: _id}, {"$push":{industrial:{factoryId,quantity}}} )
                 }
-                 return models.Base.findOneAndUpdate({userId: _id, industrial:{$elemMatch:{factoryId}}}, {$set:{"industrial.$":{unitId,quantity}}}, {new: true, useFindAndModify: false} )
+                 return models.Base.findOneAndUpdate({userId: _id, industrial:{$elemMatch:{factoryId}}}, {$set:{"industrial.$":{factoryId,quantity}}}, {new: true, useFindAndModify: false} )
             }).then((industrial)=>{
             
                 return res.send(industrial)
