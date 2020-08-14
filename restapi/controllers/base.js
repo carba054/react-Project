@@ -54,14 +54,23 @@ module.exports = {
     post: {
         addUnit:(req, res, next) => {
         
-            const { _id } = req.user;
+            const { _id, metal, mineral, fuel} = req.user;
     
             const { unitId, quantity } = req.body; 
             
-            models.Base.findOne({userId: _id, units:{$elemMatch:{unitId}}})
-            .then((result)=>{
+            Promise.all([
+                models.Units.findOne({"_id":unitId}),
+                models.Base.findOne({userId: _id, units:{$elemMatch:{unitId}}})
+            ])
+            .then(([unit,result])=>{
+                const newMetal = Number(metal)-(Number(unit.metal)*Number(quantity))
+                const newMineral =  Number(mineral)-(Number(unit.mineral)*Number(quantity))
+                const newFuel =  Number(fuel)-(Number(unit.fuel)*Number(quantity))
+                
+               
                 if(result===null || result.length === 0 ){
-                    return models.Base.updateOne({userId: _id}, {"$push":{units:{unitId,quantity}}} )
+                    return models.Base.updateOne({userId: _id}, {"$push":{units:{unitId,quantity}}} ),
+                    models.User.findOneAndUpdate({"_id": _id}, {$set:{"metal":newMetal,"mineral":newMineral,"fuel":newFuel}},{new: true, useFindAndModify: false})
                 }
 
                 const current = result.units.filter((el)=>{
@@ -71,9 +80,10 @@ module.exports = {
                 })
                 const newQiantity = Number(current[0].quantity)+Number(quantity)
                
-                return models.Base.findOneAndUpdate({userId: _id, units:{$elemMatch:{unitId}}}, {$set:{"units.$":{unitId,"quantity":newQiantity}}}, {new: true, useFindAndModify: false} )
-            }).then((units)=>{
-                return res.send(units)
+                return models.Base.findOneAndUpdate({userId: _id, units:{$elemMatch:{unitId}}}, {$set:{"units.$":{unitId,"quantity":newQiantity}}}, {new: true, useFindAndModify: false} ),
+                models.User.findOneAndUpdate({"_id": _id}, {$set:{"metal":newMetal,"mineral":newMineral,"fuel":newFuel}},{new: true, useFindAndModify: false})
+            }).then((user)=>{
+                return res.send(user)
             }).catch(next)
         },
         addFactory:(req, res, next) => {//quantity trqbva da se updatva +1 a ne da se podava kato number ot vun i trqbva da se vlizma ot resursa

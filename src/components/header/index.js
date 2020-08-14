@@ -1,39 +1,47 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback, useEffect, useState } from 'react'
 import Link from '../link'
 import styles from './index.module.css'
 import getNavigation from '../../utils/navigation'
 import UserContext from '../../Context'
-
+import getData from '../../utils/data'
 
 const Header = () =>{
   
-  const {user} = useContext(UserContext)
-  
+   const {user} = useContext(UserContext)
+  const [resource,setResource] = useState(user)
   const links = getNavigation(user)
+
+ 
 
   const renderResource = () => {
     return (
           <div className={styles.resurs}>
             <div>
               <span>Minerals: </span>
-              <span className={styles.spanRight}>{user.metal}</span>
+              <span className={styles.spanRight}>{resource.metal}</span>
             </div>
             <div>
               <span>Metals: </span>
-              <span className={styles.spanRight}>{user.mineral}</span>
+              <span className={styles.spanRight}>{resource.mineral}</span>
             </div>
             <div>
               <span>Fuel: </span>
-              <span className={styles.spanRight}>{user.fuel}</span>
+              <span className={styles.spanRight}>{resource.fuel}</span>
             </div>
             <div>
               <span>Current/Max Population</span>
-              <span className={styles.spanRight}>{user.currentPopulation}/{user.maxPopulation}</span>
+              <span className={styles.spanRight}>{resource.currentPopulation}/{resource.maxPopulation}</span>
             </div>
           </div>
     )
 
   }
+
+  useEffect(() => {
+    getData(`user/${user.id}`).then((el)=>{
+      setResource(el)
+    })
+  },[user]);
  
     return (
       <React.Fragment>
