@@ -34,7 +34,6 @@ const Header = () =>{
     )
 
   }
-//https://www.jing.fm/clipimg/full/345-3453810_two-swords-clip-art-crossed-swords.png
  
     return (
       <React.Fragment>

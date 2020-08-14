@@ -24,3 +24,4 @@ const Industrial = () =>{
 }
 
 export default Industrial 
+

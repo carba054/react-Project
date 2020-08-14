@@ -2,17 +2,18 @@ import React from 'react'
 import styles from './index.module.css'
 import DivGrid from '../grid'
 
-const Industry = ({factory, baseFactory={}, opacity}) => {
+const Industry = (props) => {
      
+  
   return (
       <div className={styles.container}>
-        <h3>{factory.name}</h3>
-        <h3>{opacity?"unlocked":"unlock"}: {factory.unlock.name} units</h3>
-        <h3>baseFactory:{baseFactory.quantity}</h3>
+        <h3>{props.factory.name}</h3>
+        <h3>{props.opacity?"unlocked":"unlock"}: {props.factory.unlock.name} units</h3>
+        <h3>baseFactory:{props.baseFactory?props.baseFactory.quantity:''}</h3>
         <DivGrid>
-        <img className={`${styles.factoryImg} ${!opacity?styles.opacity:''}` } src={factory.href} alt='img'/>
+        <img className={`${styles.factoryImg} ${!props.opacity?styles.opacity:''}` } src={props.factory.href} alt='img'/>
         <div>
-          <button>{opacity?'lvl up':'build'}</button>
+          {props.children}
         </div>
         
         </DivGrid>

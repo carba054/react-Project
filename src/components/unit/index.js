@@ -1,14 +1,21 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useContext } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import styles from './index.module.css'
 import Grid from '../grid'
-
+import SubmitButton from '../../components/button'
+import Input from '../../components/input'
+import UserContext from '../../Context'
+import getCookie from '../../utils/cookie'
 
 const Unit = (props) => {
   
   const history = useHistory();
   const location = useLocation();
   const [showResults, setShowResults] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [quantity,setQuantity] = useState(0)
+  const context = useContext(UserContext);
+  const userId = context.user.id
 
   const unitinfo =useCallback(() =>{
     return (
@@ -76,10 +83,6 @@ const Unit = (props) => {
   },[unitinfo]);
   
   function test(id){
-      // let loc = ['']
-      // loc.push(location.pathname.split('/')[1],type,id)
-      // loc = loc.join('/');
-      // 
        let loc = location.pathname.split('/');
        
        let newLoc =loc.filter((el)=> el!==id);
@@ -87,6 +90,25 @@ const Unit = (props) => {
        newLoc = newLoc.join('/')
        history.replace(newLoc);
        
+  }
+
+  const handleSubmit = ()=>{
+    fetch('http://localhost:9999/api/base/army', {
+        method: 'POST',
+        body: JSON.stringify({
+          "userId": userId,
+          "unitId": props._id,
+          "quantity": quantity
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getCookie('x-auth-token')
+        } 
+      }).then((el)=>{
+        setSuccess(true)
+        setTimeout(function(){ setSuccess(false); }, 3000)
+      })
+
   }
 
   return (
@@ -108,15 +130,24 @@ const Unit = (props) => {
         </tbody>
       </table>
       
-      <Grid>
+      <Grid> 
         <div className={styles.divBuy}>
           <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => test(props._id)}/>
-          <button onClick={() => setShowResults(!showResults)} className={styles.buttonInfo}>{!showResults?"Show ":"Hide "}info</button>
+          <SubmitButton onClick={()=> setShowResults(!showResults)} title={`${showResults?'Hide':'Show'} info`} />
+          {/* <button onClick={() => setShowResults(!showResults)} className={styles.buttonInfo}>{!showResults?"Show ":"Hide "}info</button> */}
         </div>
         
         {props.quantity?<h3>Quantity: {props.quantity}</h3>:
         <div className={`${styles.divBuy} ${props.opacity===true?styles.opacity:''}`}>
-          <input type="number" name="buy" className={styles.inputBuy}/><button className={styles.buttonBuy}>Buy</button>
+          <Input
+          onChange={e => setQuantity(e.target.value)}
+          label="Quantity"
+          id="quantity"
+          type="number"
+          cssName="quantity"
+          />
+          <SubmitButton  title="Buy"  onClick={()=> handleSubmit()} />
+          {success?<h1>uraaaaaaa</h1>:''}
         </div>}
         <div className={`${styles.divBuy} ${!props.opacity===true?styles.opacity:''}`}>
           <h3>You need a building</h3>

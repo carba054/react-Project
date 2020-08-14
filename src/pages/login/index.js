@@ -27,7 +27,7 @@ const LoginPage = () => {
         console.log('Error', e)
       }
     )
-  }
+  } 
 
   return (
     <PageLayout>

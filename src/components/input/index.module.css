@@ -1,0 +1,9 @@
+.quantity{
+    text-align: center; 
+}
+
+.quantity input{
+    text-align: center;
+    margin-right: 5px;
+    width: 60px;
+}

@@ -27,28 +27,22 @@ const Units = (props) => {
       })
       
       const finalUnits = newUnits.map((el)=> {
-        
         const baseFactory = base.find((fac)=> fac.factoryId!==null && fac.factoryId.unlock._id === el.typeId._id)
-          //console.log(baseFactory)
         return {...el,"opacity":!baseFactory?true:false}
       })
       
-      setUnits(finalUnits)
+      setUnits(finalUnits) 
     })
     
   }, [props.kind,userId])
 
   const renderUnits = () => {
-    //console.log(units)
-    // const newUnits = units.length === 1?[units[0].units[0].unitId]:units;
-    
     const result = units.filter((el)=> el._id === href || el.typeId.name === href)
     const neResult = result.length===0?units:result;
     
     return neResult.length!==0?neResult.map((unit) => {
       
-     // console.log(`${unit.opacity} : ${unit.name}`)
-        return <Unit key={unit._id} buy={props.buy} {...unit} />
+    return <Unit key={unit._id} buy={props.buy} {...unit}/>
     }):'You dont have units'
     
   }
