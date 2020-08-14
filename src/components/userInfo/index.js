@@ -5,9 +5,16 @@ const UserInfo = (props) => {
   
 
     return props.user.map((el, index)=>{
-        console.log(el)
+        
         return(
-             <img key={index} src={el.unitId.imgUrl}/>
+            <React.Fragment key={index}>
+        
+            <div className={styles.div} >
+                <img className={styles.img}  src={el.unitId.imgUrl} alt='img'/>
+                <span>quantity:{el.quantity}</span>
+            </div>
+            </React.Fragment>
+            
             
         )
     })

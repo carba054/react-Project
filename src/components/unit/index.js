@@ -6,6 +6,7 @@ import SubmitButton from '../../components/button'
 import Input from '../../components/input'
 import UserContext from '../../Context'
 import getCookie from '../../utils/cookie'
+import SuccessDiv from '../successDiv'
 
 const Unit = (props) => {
   
@@ -17,7 +18,7 @@ const Unit = (props) => {
   const context = useContext(UserContext);
   const userId = context.user.id
 
-  const unitinfo =useCallback(() =>{
+  const unitinfo =() =>{
     return (
       <React.Fragment>
         <table className={styles.moreInfo}>
@@ -76,13 +77,13 @@ const Unit = (props) => {
         </table>
       </React.Fragment>
         )
-  },[props])
+  }
   
-  useEffect(() => {
-    unitinfo()
-  },[unitinfo]);
+  // useEffect(() => {
+  //   unitinfo()
+  // },[unitinfo]);
   
-  function test(id){
+  function unitFIlter(id){
        let loc = location.pathname.split('/');
        
        let newLoc =loc.filter((el)=> el!==id);
@@ -106,7 +107,8 @@ const Unit = (props) => {
         } 
       }).then((el)=>{
         setSuccess(true)
-        setTimeout(function(){ setSuccess(false); }, 3000)
+        setQuantity(0)
+        setTimeout(function(){ setSuccess(false); }, 2000)
       })
 
   }
@@ -132,9 +134,8 @@ const Unit = (props) => {
       
       <Grid> 
         <div className={styles.divBuy}>
-          <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => test(props._id)}/>
+          <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => unitFIlter(props._id)}/>
           <SubmitButton onClick={()=> setShowResults(!showResults)} title={`${showResults?'Hide':'Show'} info`} />
-          {/* <button onClick={() => setShowResults(!showResults)} className={styles.buttonInfo}>{!showResults?"Show ":"Hide "}info</button> */}
         </div>
         
         {props.quantity?<h3>Quantity: {props.quantity}</h3>:
@@ -145,9 +146,11 @@ const Unit = (props) => {
           id="quantity"
           type="number"
           cssName="quantity"
+          value={quantity}
           />
-          <SubmitButton  title="Buy"  onClick={()=> handleSubmit()} />
-          {success?<h1>uraaaaaaa</h1>:''}
+          {success?<SuccessDiv/>:
+          <SubmitButton  title="Buy"  onClick={()=> handleSubmit()} />}
+          
         </div>}
         <div className={`${styles.divBuy} ${!props.opacity===true?styles.opacity:''}`}>
           <h3>You need a building</h3>

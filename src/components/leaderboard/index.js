@@ -1,21 +1,24 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect, useContext} from 'react'
 import styles from './index.module.css'
 
 import getGenerals from '../../utils/data'
 import DivGrid from '../../components/grid'
 import UserInfo from '../../components/userInfo'
+import SubmitButton from '../../components/button'
+import SuccessDiv from '../successDiv'
+import UserContext from '../../Context'
+import getCookie from '../../utils/cookie'
+
 const Leaderboard = () => {
     const [army, setArmy] = useState([])
     const [user, setUser] = useState([])
     const [showResults, setShowResults] = useState(false)
-  
+    const [success,setSuccess] = useState(false)
+    const context = useContext(UserContext);
+    const userId = context.user.id
+
     const getArmy = useCallback(() => {
       getGenerals("base").then((generals)=>{
-        // const newUnits = generals.map((el)=> {
-        //   const quantity =  Object.assign({"quantity":el.quantity}, el.unitId)
-        //   return el.unitId?quantity:el
-        // })
-        // console.log(newUnits)
         setArmy(generals)
       })
     }, [])
@@ -31,27 +34,45 @@ const Leaderboard = () => {
         setUser(units)
     }
     const viewUser =()=>{
-        return <UserInfo user={user.units}/>   
+        return <div><h3>Name:{user.userId.username}</h3><UserInfo user={user.units}/></div> 
     }
     
-    
+    const handleSubmit = (defenderId)=>{
+      fetch('http://localhost:9999/api/base/attack', {
+          method: 'POST',
+          body: JSON.stringify({
+            "userId": userId,
+            "defenderId": defenderId,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getCookie('x-auth-token')
+          } 
+        }).then((el)=>{
+          setSuccess(true)
+          setTimeout(function(){ setSuccess(false); }, 2000)
+        })
+  
+    }
 
   
     const renderArmy = () => {
-      // const result = army.filter((el)=> el._id === href || el.typeId.name === href)
-      // const neResult = result.length===0?army:result;
       return army.map((unit,index) => {
-        // console.log(unit)
         return (
-              <tr key={index}>
+          <React.Fragment key={index}>
+              <tr>
                 <td>{unit.userId.username}</td> 
                 <td>{unit.userId.wins}</td> 
                 <td>{unit.userId.losses}</td> 
-                <td>{unit.userId.currentPopulation}</td> 
-                <td><button onClick={() => view(unit)}>View</button></td>
-                <td><button>Attack</button></td> 
-              </tr>)
-        //return <Unit key={unit._id} buy={props.buy} {...unit} />
+                <td>{unit.userId.currentPopulation}</td>
+                
+                <td>{userId !== unit.userId._id?<SubmitButton title='View' onClick={() => view(unit)}/>:''}</td>
+                <td>{userId !== unit.userId._id?<SubmitButton title='Attack' onClick={() => handleSubmit(unit.userId)} />:''}</td>
+              </tr>
+              
+          </React.Fragment>
+              
+              )
       })
      
     }
@@ -63,21 +84,25 @@ const Leaderboard = () => {
                 <table className={styles.tableRank}>
                 <thead>
                     <tr>
-                    <th>name</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Points</th>
-                    <th>View</th>
-                    {/* <th>Send msg</th> */}
-                    <th>Attack</th>
+                      <th>name</th>
+                      <th>Wins</th>
+                      <th>Losses</th>
+                      <th>Points</th>
+                      <th>View</th>
+                      {/* <th>Send msg</th> */}
+                      <th>Attack</th>
                     </tr>
                 </thead>
                 <tbody>
                 {renderArmy()}
+                
                 </tbody>
                 </table>
+                
             </div>
-            {showResults?viewUser():''}
+            {success?<SuccessDiv msg='Successful Attack'/>:showResults?viewUser():''}
+            
+            
         </DivGrid>
     </React.Fragment>
     

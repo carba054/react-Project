@@ -94,6 +94,10 @@ module.exports = {
                 return res.send(industrial)
             }).catch(next)
 
+        },
+        battle:(req, res, next) => {
+
+            return res.send(true);
         }
 
     },

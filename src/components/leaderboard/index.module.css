@@ -1,10 +1,32 @@
-.tableRank{
-    width: 100%;
-    /* margin-left: auto;
-    margin-right: auto; */
-    
- }
 
- .tableRank th, td {
-     text-align: center;
- }
+ .tableRank {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+.tableRank td,th {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+    /* background-color: #6495ED; */
+  }
+  
+.tableRank tr:nth-child(even){
+      background-color: #f2f2f2;
+    }
+.tableRank tr:nth-child(odd){
+    background-color: #6495ED;
+    }
+    
+.tableRank tr:hover {
+      background-color: #ddd;
+    }
+  
+.tableRank th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
