@@ -28,12 +28,14 @@ const Leaderboard = () => {
     }, [getArmy])
   
     
-    const view = (units) =>{
+    const view = useCallback((units=user) =>{
         
         setShowResults(!showResults)
         setUser(units)
-    }
-    const viewUser =()=>{
+    },[user,showResults])
+    
+    
+    const viewUser = ()=>{
         return <div><h3>Name:{user.userId.username}</h3><UserInfo user={user.units}/></div> 
     }
     
@@ -48,13 +50,18 @@ const Leaderboard = () => {
             'Content-Type': 'application/json',
             'Authorization': getCookie('x-auth-token')
           } 
-        }).then((el)=>{
+        }).then(promise => {
+          return promise.json()
+        }).then(response => {
           setSuccess(true)
+          setUser(response)
           setTimeout(function(){ setSuccess(false); }, 2000)
         })
   
     }
 
+  
+    
   
     const renderArmy = () => {
       return army.map((unit,index) => {

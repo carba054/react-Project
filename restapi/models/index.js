@@ -4,6 +4,7 @@ const Units = require('./Units')
 const UnitType = require('./UnitType')
 const Base = require('./Base')
 const Factory = require('./Factory')
+const Reports = require('./Reports')
 
 module.exports = {
     User,
@@ -11,5 +12,6 @@ module.exports = {
     Units,
     UnitType,
     Base,
-    Factory
+    Factory,
+    Reports
 }
