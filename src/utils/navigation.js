@@ -62,7 +62,7 @@ const getNavigation = (user) => {
   const guestLinks = [
     {
       title: "Ranking",
-      link: "/",//!
+      link: "/home",//!
       section: []
     },
     {

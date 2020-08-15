@@ -64,7 +64,9 @@ const Leaderboard = () => {
     
   
     const renderArmy = () => {
+      
       return army.map((unit,index) => {
+        
         return (
           <React.Fragment key={index}>
               <tr>
@@ -74,7 +76,8 @@ const Leaderboard = () => {
                 <td>{unit.userId.currentPopulation}</td>
                 
                 <td>{userId !== unit.userId._id?<SubmitButton title='View' onClick={() => view(unit)}/>:''}</td>
-                <td>{userId !== unit.userId._id?<SubmitButton title='Attack' onClick={() => handleSubmit(unit.userId)} />:''}</td>
+                {userId!==undefined?<td>{userId !== unit.userId._id?<SubmitButton title='Attack' onClick={() => handleSubmit(unit.userId)} />:''}</td>:<td></td>}
+                
               </tr>
               
           </React.Fragment>
@@ -97,7 +100,7 @@ const Leaderboard = () => {
                       <th>Points</th>
                       <th>View</th>
                       {/* <th>Send msg</th> */}
-                      <th>Attack</th>
+                      <th>{userId!==undefined?"Attack":""}</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -47,7 +47,22 @@ module.exports = {
             .then((units) => {
                 res.send(units)
             }).catch(next);
-        }
+        },
+        myReports:(req, res, next) => {
+            const id = req.params.id;
+            Promise.all([
+                models.Reports.find({"attackerId": id}),
+                models.Reports.find({"defenderId": id})
+            
+            ])
+            .then(([attacker,defender]) => {
+                
+               res.send({
+                attacker,
+                defender
+            })
+            }).catch(next);
+        },
 
     },
 

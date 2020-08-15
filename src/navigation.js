@@ -15,7 +15,7 @@ import FactoryPage from './pages/factory'
 import RankingPage from './pages/ranking'
 import Army from './pages/army'
 import Industrial from './pages/industrial'
-// import Reports from './pages'
+import ReportsPage from './pages/reports'
 
 import ErrorPage from './pages/error'
 
@@ -27,11 +27,12 @@ const Navigation = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={["/home","/"]} exact component={context.user.loggedIn?Home:ErrorPage} />
+        <Route path={["/home","/"]} exact component={context.user.loggedIn?Home:RankingPage} />
         <Route path="/home/army" component={Army} />
         <Route path="/home/industrial" component={Industrial} />
         <Route path="/factory" component={FactoryPage} />
         <Route path="/ranking" component={RankingPage} />
+        <Route path="/reports" component={ReportsPage} />
         <Route path="/register" exact component={RegisterPage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/profile/:userid" component={ProfilePage} />
