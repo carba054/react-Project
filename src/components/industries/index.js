@@ -46,7 +46,11 @@ const Industryes = () => {
           'Content-Type': 'application/json',
           'Authorization': getCookie('x-auth-token')
         } 
-      }).then((el)=>setFlag(true))
+      }).then((el)=>{
+        context.updateUser()
+        setFlag(true)
+      
+      })
 
   } 
 
@@ -55,7 +59,10 @@ const Industryes = () => {
     return factories.map((factory) => {
       const baseFactory = base.find((el)=> el.factoryId!==null && el.factoryId._id === factory._id)
       return  <Industry key={factory._id} factory={factory} baseFactory={baseFactory} opacity={baseFactory?true:false}>
-                <SubmitButton onClick={()=> handleSubmit(factory._id,baseFactory?baseFactory.quantity:0)} title={baseFactory?'lvl up':'build'} disabled={!flag?false:true}/>
+                <UserContext.Consumer>
+                  {context => <SubmitButton onClick={()=> handleSubmit(factory._id,baseFactory?baseFactory.quantity:0)} title={baseFactory?'lvl up':'build'} disabled={!flag?false:true}/>}
+                </UserContext.Consumer>
+                
               </Industry>
     })
   }

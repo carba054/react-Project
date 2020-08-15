@@ -18,6 +18,8 @@ const Unit = (props) => {
   const context = useContext(UserContext);
   const userId = context.user.id
 
+  const [user,setUser] = useState(false)
+
   const unitinfo =() =>{
     return (
       <React.Fragment>
@@ -58,16 +60,16 @@ const Unit = (props) => {
           </thead>
           <tbody>
             <tr>
-              <th>mineral</th>
-              <td>222222</td>
-            </tr>
-            <tr>
               <th>Metal</th>
-              <td>222222</td>
+              <td>{props.metal}</td>
             </tr>
             <tr>
-              <th>Flue</th>
-              <td>222222</td>
+              <th>Mineral</th>
+              <td>{props.mineral}</td>
+            </tr>
+            <tr>
+              <th>Fuel</th>
+              <td>{props.fuel}</td>
             </tr>
             <tr>
               <th>Population</th>
@@ -108,9 +110,12 @@ const Unit = (props) => {
       }).then((el)=>{
         setSuccess(true)
         setQuantity(0)
+        context.updateUser()
         setTimeout(function(){ setSuccess(false); }, 2000)
+        
       })
-
+      setUser(true)
+      
   }
 
   return (
@@ -135,6 +140,7 @@ const Unit = (props) => {
       <Grid> 
         <div className={styles.divBuy}>
           <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => unitFIlter(props._id)}/>
+          
           <SubmitButton onClick={()=> setShowResults(!showResults)} title={`${showResults?'Hide':'Show'} info`} />
         </div>
         
@@ -149,7 +155,10 @@ const Unit = (props) => {
           value={quantity}
           />
           {success?<SuccessDiv/>:
-          <SubmitButton  title="Buy"  onClick={()=> handleSubmit()} />}
+          <UserContext.Consumer>
+          {context => <SubmitButton  title="Buy"  onClick={()=> handleSubmit()} />}
+          </UserContext.Consumer>
+          }
           
         </div>}
         <div className={`${styles.divBuy} ${!props.opacity===true?styles.opacity:''}`}>

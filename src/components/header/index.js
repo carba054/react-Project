@@ -11,37 +11,40 @@ const Header = () =>{
   const [resource,setResource] = useState(user)
   const links = getNavigation(user)
 
+  const [flag,setFlag] = useState(false)
+
  
 
-  const renderResource = () => {
+  const renderResource = useCallback(() => {
     return (
+     
+      <React.Fragment>
+         {user.loggedIn?
           <div className={styles.resurs}>
             <div>
               <span>Minerals: </span>
-              <span className={styles.spanRight}>{resource.metal}</span>
+              <span className={styles.spanRight}>{user.metal}</span>
             </div>
             <div>
               <span>Metals: </span>
-              <span className={styles.spanRight}>{resource.mineral}</span>
+              <span className={styles.spanRight}>{user.mineral}</span>
             </div>
             <div>
               <span>Fuel: </span>
-              <span className={styles.spanRight}>{resource.fuel}</span>
+              <span className={styles.spanRight}>{user.fuel}</span>
             </div>
             <div>
               <span>Current/Max Population</span>
-              <span className={styles.spanRight}>{resource.currentPopulation}/{resource.maxPopulation}</span>
+              <span className={styles.spanRight}>{user.currentPopulation}/{user.maxPopulation}</span>
             </div>
-          </div>
+          </div>:''}
+      </React.Fragment>
+          
     )
 
-  }
+  },[user])
 
-  useEffect(() => {
-    getData(`user/${user.id}`).then((el)=>{
-      setResource(el)
-    })
-  },[user]);
+ 
  
     return (
       <React.Fragment>

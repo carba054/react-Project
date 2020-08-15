@@ -87,18 +87,33 @@ module.exports = {
             }).catch(next)
         },
         addFactory:(req, res, next) => {//quantity trqbva da se updatva +1 a ne da se podava kato number ot vun i trqbva da se vlizma ot resursa
-            const { _id} = req.user;
+            const { _id, metal, mineral } = req.user;
     
             const { factoryId, quantity } = req.body; 
 
             const newQuantiti = Number(quantity)+1
+
+            
+            let newMetal = 0
+            let newMineral =  0
+
+            Promise.all([
+            models.Factory.findOne({"_id":factoryId}),
             models.Base.find({userId: _id, industrial:{$elemMatch:{factoryId}}})
-            .then((result)=>{
+            ]) 
+            .then(([factory,result])=>{
+                
+                newMetal = Number(metal)-(Number(factory.metal))
+                newMineral =  Number(mineral)-(Number(factory.mineral))
+
                 if(result.length === 0){
                     return models.Base.updateOne({userId: _id}, {"$push":{industrial:{factoryId}}} )
                 }
-                //return models.Base.findOne({userId: _id, industrial:{$elemMatch:{factoryId,quantity}}})
-                return models.Base.findOneAndUpdate({userId: _id, industrial:{$elemMatch:{factoryId}}}, {$set:{"industrial.$":{factoryId,"quantity":newQuantiti}}}, {new: true, useFindAndModify: false} )
+                
+                  return models.User.findOneAndUpdate({"_id": _id}, {$set:{"metal":newMetal,"mineral":newMineral}},{new: true, useFindAndModify: false}).then((e)=>{
+                    return models.Base.findOneAndUpdate({userId: _id, industrial:{$elemMatch:{factoryId}}}, {$set:{"industrial.$":{factoryId,"quantity":newQuantiti}}}, {new: true, useFindAndModify: false} )
+                
+                  })
             }).then((industrial)=>{
                 
                 return res.send(industrial)
@@ -106,8 +121,8 @@ module.exports = {
 
         },
         battle:(req, res, next) => {
-
-            return res.send(true);
+            console.log(req.body)
+            //return res.send(true);
         }
 
     },

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import UserContext from './Context'
 import getCookie from './utils/cookie'
+import getData from './utils/data'
 
 const App = (props) => {
   const [user, setUser] = useState(null)
@@ -12,6 +13,24 @@ const App = (props) => {
       ...user,
       loggedIn: true
     })
+  }
+  
+  
+  const updateUser = () => {
+    getData(`user/${user.id}`).then((response)=>{
+      setUser({
+        username: response.username,
+        id: response._id,
+        mineral: response.mineral,
+        metal: response.metal,
+        fuel: response.fuel,
+        maxPopulation: response.maxPopulation,
+        currentPopulation: response.currentPopulation,
+        loggedIn: true
+      })
+      
+    })
+    
   }
 
   const logOut = () => {
@@ -68,7 +87,8 @@ const App = (props) => {
     <UserContext.Provider value={{
       user,
       logIn,
-      logOut
+      logOut,
+      updateUser
     }}>
       {props.children}
     </UserContext.Provider>
