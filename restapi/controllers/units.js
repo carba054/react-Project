@@ -6,7 +6,29 @@ module.exports = {
        //const length = req.query.length ? parseInt(req.query.length) : 20
        
         models.Units.find({}).populate('typeId')
-            .then((units) => res.send(units))
+            .then((units) => {
+                units.map((el, index)=>{ // fast hardcode from now
+                    
+                  
+                     for(let i =0; i< el.priorityTargetsType.length; i++){
+                         if(el.priorityTargetsType[i] === "5f281a26ecdcbb19b4f09a3f"){
+                            el.priorityTargetsType[i] = 'Infantry'
+                         }else if(el.priorityTargetsType[i] === "5f281a8aecdcbb19b4f09a40"){
+                            el.priorityTargetsType[i] = 'Armored'
+                         }else if(el.priorityTargetsType[i] === "5f281a96ecdcbb19b4f09a41"){
+                            el.priorityTargetsType[i] = 'Helicopter'
+                         }else if(el.priorityTargetsType[i] === "5f281aa1ecdcbb19b4f09a42"){
+                            el.priorityTargetsType[i] = 'Fighter'
+                        }else if(el.priorityTargetsType[i] === "5f281aa9ecdcbb19b4f09a43"){
+                            el.priorityTargetsType[i] = 'Defence'
+                        }
+                       
+                     }  
+                    return el
+                })
+                //console.log(units[0])
+                return res.send(units)
+            })
             .catch(next);
     },
 

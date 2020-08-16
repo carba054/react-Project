@@ -21,6 +21,7 @@ const Unit = (props) => {
   // const [user,setUser] = useState(false)
 
   const unitinfo =() =>{
+    
     return (
       <React.Fragment>
         <table className={styles.moreInfo}>
@@ -145,7 +146,18 @@ const Unit = (props) => {
         </tr>
         </tbody>
       </table>
-      
+      <table className={styles.info}>
+        <thead>
+          <tr>
+          <th>Priority Targets Types:</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>{props.priorityTargetsType.join(', ')}</td>
+        </tr>
+        </tbody>
+      </table>
       <Grid> 
         <div className={styles.divBuy}>
           <img className={styles.unitImg} alt="imgUnit" src={props.imgUrl} onClick={() => unitFIlter(props._id)}/>

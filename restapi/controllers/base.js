@@ -9,7 +9,7 @@ module.exports = {
             models.Base.find({userId: id}).populate({
                 path : 'units.unitId',
                 populate : {
-                  path : 'typeId'
+                    path : 'typeId'
                 }
               })
             .then((units) => {
@@ -17,7 +17,25 @@ module.exports = {
                 const result = units[0].units.map((el)=> {
                     return el  
                 })
-                //console.log(result)
+                result.map((el)=>{// fast hardcode from now
+                    //console.log(el.unitId.priorityTargetsType)
+                    for(let i =0; i< el.unitId.priorityTargetsType.length; i++){
+                        if(el.unitId.priorityTargetsType[i] === "5f281a26ecdcbb19b4f09a3f"){
+                           el.unitId.priorityTargetsType[i] = 'Infantry'
+                        }else if(el.unitId.priorityTargetsType[i] === "5f281a8aecdcbb19b4f09a40"){
+                           el.unitId.priorityTargetsType[i] = 'Armored'
+                        }else if(el.unitId.priorityTargetsType[i] === "5f281a96ecdcbb19b4f09a41"){
+                           el.unitId.priorityTargetsType[i] = 'Helicopter'
+                        }else if(el.unitId.priorityTargetsType[i] === "5f281aa1ecdcbb19b4f09a42"){
+                           el.unitId.priorityTargetsType[i] = 'Fighter'
+                       }else if(el.unitId.priorityTargetsType[i] === "5f281aa9ecdcbb19b4f09a43"){
+                           el.unitId.priorityTargetsType[i] = 'Defence'
+                       }
+                      
+                    }  
+                    return el
+                })
+                
                res.send(result)
             }).catch(next);
     
@@ -40,7 +58,8 @@ module.exports = {
         },
         all:(req, res, next) => {
             
-            models.Base.find({}).populate('userId').populate({
+            models.Base.find({}).populate('userId')
+            .populate({
                 path : 'units.unitId'
                 
               })
