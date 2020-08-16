@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react'
+import React, {  useState,  useContext } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import styles from './index.module.css'
 import Grid from '../grid'
@@ -18,7 +18,7 @@ const Unit = (props) => {
   const context = useContext(UserContext);
   const userId = context.user.id
 
-  const [user,setUser] = useState(false)
+  // const [user,setUser] = useState(false)
 
   const unitinfo =() =>{
     return (
@@ -96,6 +96,8 @@ const Unit = (props) => {
   }
 
   const handleSubmit = ()=>{
+    
+    
     fetch('http://localhost:9999/api/base/army', {
         method: 'POST',
         body: JSON.stringify({
@@ -107,14 +109,21 @@ const Unit = (props) => {
           'Content-Type': 'application/json',
           'Authorization': getCookie('x-auth-token')
         } 
-      }).then((el)=>{
+      }).then((result)=>{
+        // if(!result.ok) {
+        //         console.log('da')      
+        //   } else {
+        //     console.log('ne')    
+            
+        //   }
         setSuccess(true)
         setQuantity(0)
         context.updateUser()
         setTimeout(function(){ setSuccess(false); }, 2000)
-        
       })
-      setUser(true)
+      
+      .catch((err)=>console.log(err))
+      //setUser(true)
       
   }
 

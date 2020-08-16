@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+// import { useParams, useHistory } from 'react-router-dom'
 import PageLayout from '../../components/page-layout'
 // import Units from '../../components/units'
 import Btn from '../../components/button'
@@ -32,16 +32,16 @@ const ReportsPage = (props) => {
 
     console.log(myReport)
     let useDhis = myReport.length ===0?[]:myReport.attacker;
-    console.log(myReport.attacker)
+    console.log(useDhis)
     return useDhis.map((rep,index) => {
         
         return (
-          <React.Fragment key={index}>
-              <h3>{rep.attackerInfo[0].attUnitId}</h3>
-              <Btn  title="info"/>
-          </React.Fragment>
-              
-              )
+            <React.Fragment key={index}>
+                <h3>{rep._id}</h3>
+                <Btn  title="info"/>
+            </React.Fragment>
+                
+                )
       })
   }
   const defends = () => {
@@ -95,7 +95,7 @@ const ReportsPage = (props) => {
      <DivGrid>
             <div className={styles["container"]}>
             <h3>My Attacks</h3>
-            <Btn  title="Info"/>
+            {attacks()}
             </div>
             <div className={styles["container"]}>
             <h3>My Defences</h3>

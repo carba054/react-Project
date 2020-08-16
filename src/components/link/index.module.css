@@ -66,16 +66,18 @@
   border-right: 2px solid #234465; */
   margin-top: 8%;
   height: 5vh;
+ 
 }
 
 .aside-link {
   padding-left: 30%;
-  color: #234465;
+  color: #fff;
   text-align: left;
   text-decoration: none;
   padding-top: 5px;
   height: 60%;
   display: block;
+  
 }
 
 .aside-list-item:hover {

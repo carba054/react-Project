@@ -1,17 +1,17 @@
-import React, { useContext, useCallback, useEffect, useState } from 'react'
+import React, { useContext, useCallback } from 'react'
 import Link from '../link'
 import styles from './index.module.css'
 import getNavigation from '../../utils/navigation'
 import UserContext from '../../Context'
-import getData from '../../utils/data'
+// import getData from '../../utils/data'
 
 const Header = () =>{
   
    const {user} = useContext(UserContext)
-  const [resource,setResource] = useState(user)
+  // const [resource,setResource] = useState(user)
   const links = getNavigation(user)
 
-  const [flag,setFlag] = useState(false)
+  // const [flag,setFlag] = useState(false)
 
  
 

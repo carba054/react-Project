@@ -47,11 +47,11 @@ const getNavigation = (user) => {
       link: `/reports`,
       section: []
     },
-    {
-      title: "Profile",
-      link: `/profile/${user && user.id}`,
-      section: []
-    },
+    // {
+    //   title: "Profile",
+    //   link: `/profile/${user && user.id}`,
+    //   section: []
+    // },
     {
       title: "Logout",
       link: `/logout`,

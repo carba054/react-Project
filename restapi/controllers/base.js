@@ -81,8 +81,10 @@ module.exports = {
                 const newMetal = Number(metal)-(Number(unit.metal)*Number(quantity))
                 const newMineral =  Number(mineral)-(Number(unit.mineral)*Number(quantity))
                 const newFuel =  Number(fuel)-(Number(unit.fuel)*Number(quantity))
-                
-               
+                if(newMetal <0 || newMineral<0 || newFuel<0){
+                    
+                   throw new Error('err')
+                }
                 if(result===null || result.length === 0 ){
                     return models.Base.updateOne({userId: _id}, {"$push":{units:{unitId,quantity}}} ).then((el)=>{
                         return models.User.findOneAndUpdate({"_id": _id}, {$set:{"metal":newMetal,"mineral":newMineral,"fuel":newFuel}},{new: true, useFindAndModify: false})
@@ -103,7 +105,9 @@ module.exports = {
                 })
             }).then((user)=>{
                 return res.send(user)
-            }).catch(next)
+            }).catch((err)=>{
+                return false
+            })
         },
         addFactory:(req, res, next) => {//quantity trqbva da se updatva +1 a ne da se podava kato number ot vun i trqbva da se vlizma ot resursa
             const { _id, metal, mineral } = req.user;
@@ -124,7 +128,10 @@ module.exports = {
                 
                 newMetal = Number(metal)-(Number(factory.metal))
                 newMineral =  Number(mineral)-(Number(factory.mineral))
-
+                if(newMetal <0 || newMineral<0 ){
+                    
+                    throw new Error('err')
+                 }
                 if(result.length === 0){
                     return models.Base.updateOne({userId: _id}, {"$push":{industrial:{factoryId}}} )
                 }
@@ -136,7 +143,9 @@ module.exports = {
             }).then((industrial)=>{
                 
                 return res.send(industrial)
-            }).catch(next)
+            }).catch((err)=>{
+                return false
+            })
 
         },
         battle: async (req, res, next) => {

@@ -9,7 +9,7 @@ import Home from './pages/home'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
 import logOut from './pages/logout'
-import ProfilePage from './pages/profile'
+// import ProfilePage from './pages/profile'
 
 import FactoryPage from './pages/factory'
 import RankingPage from './pages/ranking'
@@ -35,7 +35,7 @@ const Navigation = () => {
         <Route path="/reports" component={ReportsPage} />
         <Route path="/register" exact component={RegisterPage} />
         <Route path="/login" exact component={LoginPage} />
-        <Route path="/profile/:userid" component={ProfilePage} />
+        {/* <Route path="/profile/:userid" component={ProfilePage} /> */}
         <Route path="/logout" component={logOut}/>
         <Route component={ErrorPage} />
       </Switch>
